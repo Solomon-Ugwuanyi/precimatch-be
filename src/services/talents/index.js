@@ -50,7 +50,7 @@ talentsRouter.put("/:id", async (req, res, next) => {
         const talent = await TalentSchema.findByIdAndUpdate(req.params.id, req.body)
         console.log(talent)
         if (talent) {
-            res.send("Ok")
+            res.send("Data Updated")
         } else {
             const error = new Error(`talent with id ${req.params.id} not found`)
             error.httpStatusCode = 404

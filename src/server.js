@@ -35,7 +35,7 @@ server.use(genericErrorHandler)
 console.log(listEndpoints(server))
 
 mongoose
-    .connect("mongodb://localhost:27017/strive-books", {
+    .connect("mongodb://localhost:27017/precimatch", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })

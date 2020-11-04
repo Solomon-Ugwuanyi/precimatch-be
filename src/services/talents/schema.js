@@ -10,7 +10,23 @@ const TalentSchema = new Schema({
         type: String,
         required: true,
     },
+    imageUrl: {
+        type: String,
+        required: true,
+    },
+    linkedinUrl: {
+        type: String,
+        required: true,
+    },
+    githubUrl: {
+        type: String,
+        required: true,
+    },
     headline: {
+        type: String,
+        required: true,
+    },
+    aboutMe: {
         type: String,
         required: true,
     },
