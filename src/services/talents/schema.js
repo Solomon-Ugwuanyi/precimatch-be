@@ -14,6 +14,10 @@ const TalentSchema = new Schema({
         type: String,
         required: true,
     },
+    techStack: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         required: true,
