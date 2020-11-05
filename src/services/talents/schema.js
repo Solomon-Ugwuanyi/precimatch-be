@@ -38,6 +38,18 @@ const TalentSchema = new Schema({
         type: String,
         required: true,
         lowercase: true,
+        validate: {
+            validator: async (value) => {
+                if (!v.isEmail(value)) {
+                    throw new Error("Email is invalid")
+                } else {
+                    const checkEmail = await TalentSchema.findOne({ email: value })
+                    if (checkEmail) {
+                        throw new Error("Email already existant!")
+                    }
+                }
+            },
+        },
     },
     phone: {
         type: Number,
