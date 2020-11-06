@@ -53,7 +53,6 @@ const TalentSchema = new Schema({
     },
     phone: {
         type: Number,
-        required: true,
     },
     professions: Array,
 })
