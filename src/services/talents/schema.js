@@ -45,7 +45,7 @@ const TalentSchema = new Schema({
                 } else {
                     const checkEmail = await TalentSchema.findOne({ email: value })
                     if (checkEmail) {
-                        throw new Error("Email already existant!")
+                        throw new Error("Email already exists!")
                     }
                 }
             },
