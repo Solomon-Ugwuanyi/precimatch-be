@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose")
+const { Schema, model } = require("mongoose")
 const mongoose = require("mongoose")
 
 const ProjectSchema = new Schema({
@@ -21,7 +21,15 @@ const ProjectSchema = new Schema({
     projectUrl: {
         type: String,
         required: true
-    }
-})
+    },
 
-module.exports = mongoose.model("Project", ProjectSchema)
+    talentID: {
+        type: Schema.Types.ObjectId,
+        ref: 'talent',
+        required: true
+
+    }
+}, { timestamp: true })
+
+const ProjectModel = model("project", ProjectSchema)
+module.exports = ProjectModel;

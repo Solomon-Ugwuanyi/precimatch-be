@@ -1,17 +1,14 @@
 const express = require("express")
 const q2m = require("query-to-mongo")
 
-const ProjectSchema = require("./schema")
+const ProjectModel = require("./schema")
 
 const projectsRouter = express.Router()
 
 projectsRouter.get("/", async (req, res, next) => {
-
-
-
     try {
-        const projects = await ProjectSchema.find(req.query)
-        res.send(projects)
+        const project = await ProjectModel.find(req.query)
+        res.send(project)
     } catch (error) {
         next(error)
     }
@@ -20,7 +17,7 @@ projectsRouter.get("/", async (req, res, next) => {
 projectsRouter.get("/:id", async (req, res, next) => {
     try {
         const id = req.params.id
-        const talent = await ProjectSchema.findById(id)
+        const talent = await ProjectModel.findById(id)
         if (talent) {
             res.send(talent)
         } else {
@@ -34,12 +31,19 @@ projectsRouter.get("/:id", async (req, res, next) => {
     }
 })
 
-projectsRouter.post("/", async (req, res, next) => {
+projectsRouter.post("/:talentId", async (req, res, next) => {
     try {
-        const newtalent = new ProjectSchema(req.body)
-        const { _id } = await newtalent.save()
+        const newProject = new ProjectModel({ ...req.body, talentID: req.params.talentId })
+        const addProject = await newProject.save()
+        if (addProject) {
+            res.status(201).send(newProject._id)
 
-        res.status(201).send(_id)
+        } else {
+            res.status(404).send(`Kindly check the infortmation provided with ${talentId}`)
+        }
+        //
+
+
     } catch (error) {
         next(error)
     }
@@ -47,7 +51,7 @@ projectsRouter.post("/", async (req, res, next) => {
 
 projectsRouter.put("/:id", async (req, res, next) => {
     try {
-        const talent = await ProjectSchema.findByIdAndUpdate(req.params.id, req.body)
+        const talent = await ProjectModel.findByIdAndUpdate(req.params.id, req.body)
         console.log(talent)
         if (talent) {
             res.send("Data Updated")
@@ -63,7 +67,7 @@ projectsRouter.put("/:id", async (req, res, next) => {
 
 projectsRouter.delete("/:id", async (req, res, next) => {
     try {
-        const talent = await ProjectSchema.findByIdAndDelete(req.params.id)
+        const talent = await ProjectModel.findByIdAndDelete(req.params.id)
         if (talent) {
             res.send("Deleted")
         } else {

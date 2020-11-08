@@ -2,7 +2,7 @@ const express = require("express")
 const q2m = require("query-to-mongo")
 
 const TalentSchema = require("./schema")
-
+const ProjectModel = require("../projects/schema")
 const talentsRouter = express.Router()
 
 talentsRouter.get("/", async (req, res, next) => {
@@ -40,6 +40,34 @@ talentsRouter.post("/", async (req, res, next) => {
         const { _id } = await newtalent.save()
 
         res.status(201).send(_id)
+    } catch (error) {
+        next(error)
+    }
+})
+
+
+talentsRouter.post("/:talentId/projects", async (req, res, next) => {
+    try {
+        const newProject = new ProjectModel({ ...req.body, talentID: req.params.talentId })
+        const addProject = await newProject.save()
+        if (addProject) {
+            res.status(201).send(newProject._id)
+
+        } else {
+            res.status(404).send(`Kindly check the infortmation provided with ${talentId}`)
+        }
+        //
+
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+talentsRouter.get("/:talentId/projects", async (req, res, next) => {
+    try {
+        const project = await ProjectModel.find(req.query)
+        res.send(project)
     } catch (error) {
         next(error)
     }
