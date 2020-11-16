@@ -67,7 +67,8 @@ talentsRouter.post("/:talentId/projects", async (req, res, next) => {
 talentsRouter.get("/:talentId/projects", async (req, res, next) => {
     try {
         const talentID = req.params.talentId
-        const project = await ProjectModel.findById(talentID)
+
+        const project = await ProjectModel.find({ talentID })
         res.send(project)
     } catch (error) {
         next(error)
