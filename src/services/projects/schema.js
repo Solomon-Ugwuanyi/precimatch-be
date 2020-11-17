@@ -7,6 +7,10 @@ const ProjectSchema = new Schema({
         type: String,
         required: true
     },
+    projectGithub: {
+        type: String,
+        required: true
+    },
 
     projectDescription: {
         type: String,
